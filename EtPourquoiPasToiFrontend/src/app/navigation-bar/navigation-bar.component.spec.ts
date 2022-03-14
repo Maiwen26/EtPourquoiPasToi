@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EpptComponent } from './eppt.component';
+import { NavigationBarComponent } from './navigation-bar.component';
 
-describe('EpptComponent', () => {
-  let component: EpptComponent;
-  let fixture: ComponentFixture<EpptComponent>;
+describe('NavigationBarComponent', () => {
+  let component: NavigationBarComponent;
+  let fixture: ComponentFixture<NavigationBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EpptComponent ]
+      declarations: [ NavigationBarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EpptComponent);
+    fixture = TestBed.createComponent(NavigationBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
