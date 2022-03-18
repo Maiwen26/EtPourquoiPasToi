@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { AppRoutingModule } from './app-routing.module';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -13,14 +14,15 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     NavigationBarComponent,
     InscriptionComponent,
-  ],
+    FooterComponent,
+  ], /*déclarer les composants ou directives ou pipes */
   imports: [
     BrowserModule,
     AppRoutingModule,
 
   ],
-  exports:[],
-  providers: [],
-  bootstrap: [AppComponent] 
+  exports:[], /*exporter dans d'autres modules */
+  providers: [], /*déclarer les services */
+  bootstrap: [AppComponent] /*spécifier quel est le composant racine dans le module*/
 })
 export class AppModule { }
