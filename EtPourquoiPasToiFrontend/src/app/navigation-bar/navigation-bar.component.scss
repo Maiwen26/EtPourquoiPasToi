@@ -1,14 +1,14 @@
 .navbar{
     background-color: whitesmoke;
-    .navbar-brand{
-        color:blueviolet;
-        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-
-    }
+    border-radius: 2rem ;
+    img{ width:5rem;
+        height:5rem}
     .btn{
         background-color: blueviolet;
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         color: white;
-        margin:auto;
+        margin-left:5rem;
+        height:4rem;
+        border-radius: 2rem;
     }
 }

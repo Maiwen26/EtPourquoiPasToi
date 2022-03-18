@@ -4,11 +4,13 @@
 <nav class="navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="../../assets/Logo2.png" alt="" width="30" height="30" >
+        <img src="../../assets/Logo2.png" alt="" >
         <title>Et Pourquoi Pas Toi ?</title>
         <a class="btn " href="#" role="button">Témoignages</a>
         <a class="btn " href="#" role="button">Se connecter</a>
-        <a class="btn " href="#" role="button">S'inscrire</a>
+        <a class="btn" [routerLink]="['/inscription']" >S'inscrire</a>
       </a>
     </div>
   </nav>
+
+  <router-outlet></router-outlet>
