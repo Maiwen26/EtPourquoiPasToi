@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { InscriptionComponent } from './inscription/inscription.component';
 import { RouterModule,Routes } from '@angular/router';
+import { InscriptionComponent } from './inscription/inscription.component';
+import { HomeComponent } from './home/home.component';
 
-const routes: Routes=[{path:'inscription',component:InscriptionComponent},
-]
+const routes:Routes=[
+  {path:'',component:HomeComponent},
+  {path:'inscription',component:InscriptionComponent}
+];
 
 @NgModule({
-  declarations: [],
   imports: [
     RouterModule.forRoot(routes)
-  ],
-  exports:[RouterModule]
+  ]
+ ,
+exports:[RouterModule] 
 })
 export class AppRoutingModule { }
