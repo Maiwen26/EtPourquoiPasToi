@@ -7,6 +7,7 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HomeComponent } from './home/home.component';
     InscriptionComponent,
     FooterComponent,
     HomeComponent,
+    ConnexionComponent,
   ], /*déclarer les composants ou directives ou pipes */
   imports: [
     BrowserModule,
