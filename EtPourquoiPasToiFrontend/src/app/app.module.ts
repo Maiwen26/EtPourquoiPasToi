@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { ConnexionComponent } from './connexion/connexion.component';
+import { RechercheTemoignagesComponent } from './recherche-temoignages/recherche-temoignages.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
     FooterComponent,
     HomeComponent,
     ConnexionComponent,
+    RechercheTemoignagesComponent,
   ], /*déclarer les composants ou directives ou pipes */
   imports: [
     BrowserModule,
