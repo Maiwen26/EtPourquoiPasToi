@@ -6,9 +6,12 @@
     .btn{
         background-color: blueviolet;
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size:large;
         color: white;
-        margin-left:5rem;
         height:4rem;
         border-radius: 2rem;
+        margin-left: 3rem;
+        display: grid;
+        align-items: center;
     }
 }
