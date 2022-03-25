@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { RechercheTemoignagesComponent } from './recherche-temoignages/recherche-temoignages.component';
+import { ProfilComponent } from './profil/profil.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { RechercheTemoignagesComponent } from './recherche-temoignages/recherche
     HomeComponent,
     ConnexionComponent,
     RechercheTemoignagesComponent,
+    ProfilComponent,
   ], /*déclarer les composants ou directives ou pipes */
   imports: [
     BrowserModule,
