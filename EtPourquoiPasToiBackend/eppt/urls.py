@@ -1,6 +1,11 @@
 from django.urls import path
-from . import views
+from .views import (
+    TemoignageDetailApiView,
+    TemoignageListApiView,
+)
 
 urlpatterns = [
-    path('', views.temoignages_list, name='temoignages_list'),
+    path('api', TemoignageListApiView.as_view()),
+    
+    path('api/<int:temoignage_id>/', TemoignageDetailApiView.as_view()),
 ]

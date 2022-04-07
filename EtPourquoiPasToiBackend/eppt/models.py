@@ -13,7 +13,7 @@ class Temoignage(models.Model):
     typeTemoignage = models.CharField(
         max_length=1, choices=TYPE_TEMOIGNAGE, blank=False)
 
-    datePublication = models.DateField(default=timezone.now())
+    datePublication = models.DateField(auto_now_add=True,auto_now=False,blank=True)
 
     contenu = models.FileField()
 

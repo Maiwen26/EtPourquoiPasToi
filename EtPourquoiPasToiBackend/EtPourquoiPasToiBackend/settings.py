@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'eppt.apps.EpptConfig'
+    'eppt.apps.EpptConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
