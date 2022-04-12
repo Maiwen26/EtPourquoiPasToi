@@ -5,8 +5,17 @@ from rest_framework import permissions
 from .models import Temoignage
 from .serializers import TemoignageSerializer
 
+from rest_framework import viewsets
 # Create your views here.
 
+
+class TemoignageViewSet(viewsets.ModelViewSet):
+    queryset=Temoignage.objects.all().order_by('titreTemoignage')
+    serializer_class=TemoignageSerializer
+
+
+
+"""
 class TemoignageListApiView(APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
@@ -110,5 +119,5 @@ class TemoignageDetailApiView(APIView):
             status=status.HTTP_200_OK
         )
 
-
+"""
 
