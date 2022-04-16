@@ -1,123 +1,38 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import permissions
-from .models import Temoignage
-from .serializers import TemoignageSerializer
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from django.http.response import JsonResponse
 
-from rest_framework import viewsets
-# Create your views here.
+from eppt.models import Utilisateur,Temoignage
+from eppt.serializers import UtilisateurSerializer,TemoignageSerializer
 
+#Create your views here.
 
-class TemoignageViewSet(viewsets.ModelViewSet):
-    queryset=Temoignage.objects.all().order_by('titreTemoignage')
-    serializer_class=TemoignageSerializer
-
-
-
-"""
-class TemoignageListApiView(APIView):
-    # add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
-    # 1. List all  PB Avec région
-    #def get(self, request, *args, **kwargs):
-    #    '''
-     #   List all the temoignage items for given requested user
-     #   '''
-    #    temoignage = Temoignage.objects.filter(region = request.data.region)
-    #    serializer = TemoignageSerializer(temoignage, many=True)
-     #   return Response(serializer.data, status=status.HTTP_200_OK)
-
+@csrf_exempt
+def utilisateurAPI(request,id=0):
+    if request.method=='GET':
+        utilisateurs=Utilisateur.objects.all()
+        utilisateurs_serializer=UtilisateurSerializer(utilisateurs,many=True)
+        return JsonResponse(utilisateurs_serializer.data,safe=False)
     
-    # 2. Create
-    def post(self, request, *args, **kwargs):
-        '''
-        Create the Temoignage with given témoignage data
-        '''
-        data = {
-            'titreTemoignage': request.data.get('titreTemoignage'), 
-            'typeTemoignage':request.data.get('typeTemoignage'),
-            'contenu': request.data.get('contenu'), 
-            'region': request.data.get('region'),
-            'domaineEtude':request.data.get('domaineEtude'),
-        }
-        serializer = TemoignageSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-class TemoignageDetailApiView(APIView):
-    # add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self, temoignage_id, user_id):
-        '''
-        Helper method to get the object with given todo_id, and user_id
-        '''
-        try:
-            return Temoignage.objects.get(id=temoignage_id, user = user_id)
-        except Temoignage.DoesNotExist:
-            return None
-
-    # 3. Retrieve
-    def get(self, request, temoignage_id, *args, **kwargs):
-        '''
-        Retrieves the Todo with given todo_id
-        '''
-        temoignage_instance = self.get_object(temoignage_id, request.user.id)
-        if not temoignage_instance:
-            return Response(
-                {"res": "Object with temoignage id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        serializer = TemoignageSerializer(temoignage_instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    # 4. Update
-    def put(self, request, temoignage_id, *args, **kwargs):
-        '''
-        Updates the todo item with given todo_id if exists
-        '''
-        temoignage_instance = self.get_object(temoignage_id, request.user.id)
-        if not temoignage_instance:
-            return Response(
-                {"res": "Object with temoignage id does not exists"}, 
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        data = {
-            'titreTemoignage': request.data.get('titreTemoignage'), 
-            'typeTemoignage':request.data.get('typeTemoignage'),
-            'contenu': request.data.get('contenu'), 
-            'region': request.data.get('region'),
-            'domaineEtude':request.data.get('domaineEtude'),
-        }
-        serializer = TemoignageSerializer(instance = temoignage_instance, data=data, partial = True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # 5. Delete
-    def delete(self, request, temoignage_id, *args, **kwargs):
-        '''
-        Deletes the todo item with given todo_id if exists
-        '''
-        temoignage_instance = self.get_object(temoignage_id, request.user.id)
-        if not temoignage_instance:
-            return Response(
-                {"res": "Object with temoignage id does not exists"}, 
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        temoignage_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
-
-"""
+    elif request.method=='POST':
+        utilisateur_data=JSONParser().parse(request)
+        utilisateur_serializer=UtilisateurSerializer(data=utilisateur_data)
+        if utilisateur_serializer.is_valid():
+            utilisateur_serializer.save()
+            return JsonResponse('Ajout confirmé !',safe=False)
+        return JsonResponse('Erreur avec l ajout',safe=False)
+    
+    elif request.method=='PUT':
+        utilisateur_data=JSONParser().parse(request)
+        utilisateur=Utilisateur.objects.get(UtilisateurId=utilisateur_data['UtilisateurId'])
+        utilisateur_serializer=UtilisateurSerializer(utilisateur,data=utilisateur_data)
+        if utilisateur_serializer.is_valid():
+            utilisateur_serializer.save()
+            return JsonResponse("Modification réussie",safe=False)
+    
+    elif request.method=='DELETE':
+        utilisateur=Utilisateur.objects.get(UtilisateurId=id)
+        utilisateur.delete()
+        return JsonResponse("Suppression réussie",safe=False)
 

@@ -4,7 +4,7 @@ from eppt.models import Utilisateur,Temoignage
 class UtilisateurSerializer(serializers.ModelSerializer):
     class Meta:
         model=Utilisateur
-        fields=('id','password','first_name','email','last_name')
+        fields=('id','prenom','nom','email','mdp','typeUtilisateur')
 
 class TemoignageSerializer(serializers.ModelSerializer):
     class Meta:
