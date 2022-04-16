@@ -37,11 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'eppt.apps.EpptConfig',
     'rest_framework',
 ]
+CORS_ORIGIN_ALLOW_ALL= True
 
 MIDDLEWARE = [
+    'corsheaders.Middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
