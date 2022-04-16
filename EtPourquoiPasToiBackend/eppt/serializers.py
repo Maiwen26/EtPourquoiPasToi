@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from .models import Temoignage
+from eppt.models import Utilisateur,Temoignage
 
-class TemoignageSerializer(serializers.HyperlinkedModelSerializer):
+class UtilisateurSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Utilisateur
+        fields=('id','password','first_name','email','last_name')
+
+class TemoignageSerializer(serializers.ModelSerializer):
     class Meta:
         model=Temoignage
-        fields=('titreTemoignage','typeTemoignage','datePublication','contenu','region','domaineEtude')
+        fields=('id','titreTemoignage','typeTemoignage','contenu','region','domaineEtude','datePublication')

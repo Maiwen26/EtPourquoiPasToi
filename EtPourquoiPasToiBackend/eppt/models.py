@@ -1,3 +1,5 @@
+import email
+from pyexpat import model
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -5,9 +7,8 @@ from django.utils import timezone
 class Temoignage(models.Model):
     """A typical class defining a model, derived from the Model class."""
 
-    # Fields
     titreTemoignage = models.CharField(
-        max_length=20, help_text='Entrez le nom de votre témoignage', unique=True, blank=False)
+        max_length=150, help_text='Entrez le nom de votre témoignage', unique=True, blank=False)
 
     TYPE_TEMOIGNAGE = [('V', 'video'), ('A', 'audio'), ('T', 'texte')]
     typeTemoignage = models.CharField(
@@ -19,9 +20,9 @@ class Temoignage(models.Model):
 
     REGION = [('Auvergne-Rhône-Alpes', 'Auvergne-Rhône-Alpes'), ('Bourgogne-Franche-Comté', 'Bourgogne-Franche-Comté'), ('Bretagne', 'Bretagne'), ('Centre-Val de Loire', 'Centre-Val de Loire'), ('Corse', 'Corse'), ('Grand Est', 'Grand Est'), ('Hauts-de-France',
                                                                                                                                                                                                       'Hauts-de-France'), ('Île-de-France', 'Île-de-France'), ('Normandie', 'Normandie'), ('Nouvelle-Aquitaine', 'Nouvelle-Aquitaine'), ('Occitanie', 'Occitanie'), ('Pays de la Loire', 'Pays de la Loire'), ('Provence-Alpes-Côte d\'Azur', 'Provence-Alpes-Côte d\'Azur')]
-    region = models.CharField(max_length=30, choices=REGION, blank=False)
+    region = models.CharField(max_length=50, choices=REGION, blank=False)
 
-    domaineEtude = models.CharField(max_length=30, blank=False)
+    domaineEtude = models.CharField(max_length=50, blank=False)
 
     # Metadata
     class Meta:
@@ -36,3 +37,11 @@ class Temoignage(models.Model):
         """String for representing the MyModelName object (in Admin site etc.)."""
         return self.titreTemoignage
 
+class Utilisateur(models.Model):
+    prenom=models.CharField(max_length=50, help_text='Entrez le nom de votre prénom', blank=False)
+
+    nom=models.CharField(max_length=50, help_text='Entrez le nom de votre nom', blank=False)
+
+    email=models.EmailField(max_length=250,blank=False)
+
+    mdp=models.CharField(max_length=30,blank=False)
