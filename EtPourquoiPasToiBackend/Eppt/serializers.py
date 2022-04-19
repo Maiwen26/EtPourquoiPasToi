@@ -7,7 +7,3 @@ class TemoignageSerializer(serializers.ModelSerializer):
         model=Temoignages
         fields=('temoignageId','titre','datePublication','domaineEtude','typeTemoignage','region','contenu','utilisateurId')
 
-class UtilisateurSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Utilisateurs
-        fields=('utilisateurId','nom','prenom','email','typeUtilisateur','region','contenu','utilisateurId')
