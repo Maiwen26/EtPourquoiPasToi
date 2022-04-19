@@ -59,7 +59,7 @@ class Utilisateurs(AbstractBaseUser):  #AbstractBaseUser continent que le champ 
     utilisateurId=models.AutoField(primary_key=True)
     nom=models.CharField(max_length=100,blank=False,unique=True)
     prenom=models.CharField(max_length=100,blank=False)
-    email=models.EmailField(max_length=200,blank=False)
+    email=models.EmailField(max_length=200,blank=False,unique=True)
     
     #Création des choix pour le type d'utilisateur :
     LC='Lycéenne ou collégienne'
