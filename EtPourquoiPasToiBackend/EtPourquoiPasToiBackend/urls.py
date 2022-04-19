@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+
+#Librairies pour le routage des médias
+from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns+=[url(r'^media/(?<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT,}),]
