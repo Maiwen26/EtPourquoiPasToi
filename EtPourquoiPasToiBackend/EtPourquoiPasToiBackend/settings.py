@@ -44,9 +44,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'Eppt.apps.EpptConfig',
-    'rest_framework',
+    'Eppt.apps.EpptConfig', #Connexion de l'app
+    'rest_framework', #ajout de la librairie 
+    'rest_framework.authtoken',#Permet l'authtification par token
 ]
+
+#Définition du type d'authentification (ici Authentification par token ou jeton)
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 CORS_ORIGIN_ALLOW_ALL=True
 

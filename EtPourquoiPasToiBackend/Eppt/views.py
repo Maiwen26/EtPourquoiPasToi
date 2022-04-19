@@ -4,9 +4,9 @@ from pkg_resources import safe_extra
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from Eppt.models import Temoignages,Utilisateurs
-from Eppt.serializers import TemoignageSerializer,UtilisateurSerializer
-# Create your views here.
+from Eppt.models import Temoignages
+from Eppt.serializers import TemoignageSerializer
+
 
 #Création des GET, POST, PUT, DELETE du modèle témoignage
 
@@ -38,3 +38,5 @@ def temoignageAPI(request, id=0):
         temoignage=Temoignages.objects.get(temoignageId=id)
         temoignage.delete()
         return JsonResponse("Le témoignage a bien été supprimé !", safe=False)
+
+
