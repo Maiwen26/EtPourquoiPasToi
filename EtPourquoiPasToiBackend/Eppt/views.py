@@ -1,11 +1,9 @@
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pkg_resources import safe_extra
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from Eppt.models import Temoignages
-from Eppt.serializers import TemoignageSerializer
+from Eppt.models import Temoignages,Utilisateurs
+from Eppt.serializers import TemoignageSerializer,UtilisateurSerializer
 
 
 #Création des GET, POST, PUT, DELETE du modèle témoignage
@@ -38,5 +36,21 @@ def temoignageAPI(request, id=0):
         temoignage=Temoignages.objects.get(temoignageId=id)
         temoignage.delete()
         return JsonResponse("Le témoignage a bien été supprimé !", safe=False)
+
+
+
+#Création du POST de l'inscription
+
+@csrf_exempt
+def utilisateurAPI(request):
+    if request.method=='POST':
+        utilisateur_data=JSONParser().parse(request)
+        utilisateur_serializer=UtilisateurSerializer(data=utilisateur_data)
+        if utilisateur_serializer.is_valid():
+            utilisateur_serializer.save()
+            return JsonResponse("Votre compte a bien été créé !",safe=False)
+        return JsonResponse("Votre compte n'a pas pu être créé !",safe=False)
+    
+        
 
 

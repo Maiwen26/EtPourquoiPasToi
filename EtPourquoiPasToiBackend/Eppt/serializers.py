@@ -10,7 +10,7 @@ class TemoignageSerializer(serializers.ModelSerializer):
         model=Temoignages
         fields=('temoignageId','titre','datePublication','domaineEtude','typeTemoignage','region','contenu','utilisateurId')
 
-class InscriptionSerializer(serializers.ModelSerializer):
+class UtilisateurSerializer(serializers.ModelSerializer):
 
     password2= serializers.CharField(style={'input_type':'password'},write_only=True) #création du mdp2 qui est au même format que 'password' qui existe déjà dans l'AbstractBaseUser 
 
@@ -22,7 +22,7 @@ class InscriptionSerializer(serializers.ModelSerializer):
         }
 
     def save(self):
-        utilisateur=Utilisateurs(email=self.validated_data['email']) #vérification que l'email est validé
+        utilisateur=Utilisateurs(email=self.validated_data['email']) #vérification que l'email n'est pas déjà dans la bdd
         password=self.validated_data['password']
         password2=self.validated_data['password2']
 
