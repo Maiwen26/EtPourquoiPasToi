@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url
+from django.urls import re_path as url
 
 #Librairies pour le routage des médias
 from django.conf import settings
@@ -26,4 +26,4 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns+=[url(r'^media/(?<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT,}),]
+    urlpatterns+=[url(r'^media/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT,}),]

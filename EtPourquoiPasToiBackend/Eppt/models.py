@@ -47,10 +47,10 @@ class Temoignages(models.Model):
     region=models.CharField(max_length=50,choices=REGION,blank=False)
 
     #Création des différents types de contenu :
-    contenu=models.FieldFile(upload_to='',null=False,blank=False)
+    contenu=models.FileField(upload_to='medias/',null=False,blank=False)
 
     #Création de la clée étrangère utilisateur liée au témoignage :
-    creatrice=models.ForeignKey('Utilisateurs')
+    creatrice=models.ForeignKey('Utilisateurs',on_delete=models.SET_NULL,null=True)
 
 
 
