@@ -18,14 +18,13 @@ from django.urls import path
 from django.urls import re_path as url
 from django.conf.urls import include
 
-
 #Librairies pour le routage des médias
 from django.conf import settings
 from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^',include('Eppt.urls'))
+    url(r'^',include('Eppt.urls')),
 ]
 
 if settings.DEBUG:

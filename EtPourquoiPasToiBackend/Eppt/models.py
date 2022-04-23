@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 
-#Pour l'authification
+#Pour l'authification 
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -55,7 +55,7 @@ class Temoignages(models.Model):
     contenu=models.FileField(upload_to='medias/',null=False,blank=False)
 
     #Création de la clée étrangère utilisateur liée au témoignage :
-    creatrice=models.ForeignKey('Utilisateurs',on_delete=models.SET_NULL,null=True)
+    creatrice=models.ForeignKey('Utilisateurs',on_delete=models.CASCADE)
 
 
 
@@ -78,8 +78,11 @@ class Utilisateurs(AbstractBaseUser):  #AbstractBaseUser continent que le champ 
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['nom','prenom','typeUtilisateur']
 
+
+'''
 #Quand un utilisateur s'inscrit un token est créé
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender,instance=None,created=False,**kwargs):
     if created:
         Token.objects.create(user=instance)
+'''
