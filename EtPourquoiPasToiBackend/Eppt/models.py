@@ -1,4 +1,5 @@
-from django.contrib.auth.models import AbstractBaseUser
+from email.policy import default
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
 #Pour l'authification 
@@ -55,14 +56,30 @@ class Temoignages(models.Model):
     contenu=models.FileField(upload_to='medias/',null=False,blank=False)
 
     #Création de la clée étrangère utilisateur liée au témoignage :
-    creatrice=models.ForeignKey('Utilisateurs',on_delete=models.CASCADE)
+    utilisateurId=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, null=True)
 
+
+#Création du gestionnaire du site :
+
+class UtilisateurGestionnaire(BaseUserManager):
+    def create_superuser(self,email,password,nom,prenom,typeUtilisateur,utilisateurId,is_staff=True,is_admin=True):
+        gestionnaire=self.model(
+            email,
+            password,
+            nom,
+            prenom,
+            typeUtilisateur,
+            is_staff,
+            is_admin,
+            )
+        gestionnaire.save(using=self._db)
+        return gestionnaire
 
 
 
 class Utilisateurs(AbstractBaseUser):  #AbstractBaseUser continent que le champ password 
     utilisateurId=models.AutoField(primary_key=True)
-    nom=models.CharField(max_length=100,blank=False,unique=True)
+    nom=models.CharField(max_length=100,blank=False)
     prenom=models.CharField(max_length=100,blank=False)
     email=models.EmailField(max_length=200,blank=False,unique=True)
     
@@ -74,15 +91,27 @@ class Utilisateurs(AbstractBaseUser):  #AbstractBaseUser continent que le champ 
     TYPE_UTILISATEUR=((LC,'Lycéenne ou collégienne'),(I,'Ingénieure ou étudiante ingénieure'),(AU,'Autre utilisateur.e'))
     typeUtilisateur=models.CharField(max_length=50,choices=TYPE_UTILISATEUR,blank=False)
 
+    #nécessaire pour la création d'un admin :
+    is_staff=models.BooleanField(default=False)
+    is_admin=models.BooleanField(default=False)
+    last_login=models.DateTimeField(auto_now_add=True,null=True)
+
     #Nécessaire avec l'utilisation de AbstractBaseUser
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['nom','prenom','typeUtilisateur']
 
+    objects=UtilisateurGestionnaire()
 
-'''
+
+
 #Quand un utilisateur s'inscrit un token est créé
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender,instance=None,created=False,**kwargs):
+def creationAuthToken(sender,instance=None,created=False,**kwargs):
     if created:
         Token.objects.create(user=instance)
-'''
+
+
+
+
+
+

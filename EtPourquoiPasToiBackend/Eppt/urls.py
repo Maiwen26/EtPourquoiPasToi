@@ -1,13 +1,14 @@
 from django.urls import path
-from Eppt.views import temoignageDetails, temoignageModification, temoignageSuppression, temoignageCreation
+from Eppt.views import temoignageDetails, temoignageModification, temoignageSuppression, temoignageCreation, inscription
+
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns=[
-    #url(r'^temoignage/$',views.temoignageAPI),
-    #url(r'^temoignage/([0-9]+)$',views.temoignageAPI),
-    #url(r'^register',views.utilisateurAPI),
-    #url(r'^login',obtain_auth_token)
-    path('<slug>/',temoignageDetails,name="detail"),
-    path('<slug>/modification',temoignageModification,name="modification"),
-    path('<slug>/suppression',temoignageSuppression,name="suppression"),
+    path('<temoignageId>/',temoignageDetails,name="detail"),
+    path('<temoignageId>/modification',temoignageModification,name="modification"),
+    path('<temoignageId>/suppression',temoignageSuppression,name="suppression"),
     path('creation',temoignageCreation,name="creation"),
+
+    path('inscription',inscription,name="inscription"),
+    path('connexion',obtain_auth_token,name="login"),
 ]

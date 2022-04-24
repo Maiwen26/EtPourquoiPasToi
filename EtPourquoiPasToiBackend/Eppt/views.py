@@ -1,16 +1,17 @@
+from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from Eppt.models import Temoignages, Utilisateurs
-from Eppt.serializers import TemoignageSerializer
+from Eppt.serializers import TemoignageSerializer, UtilisateurSerializer
 
 #Création des GET, POST, PUT, DELETE du modèle témoignage
 
 @api_view(['GET',])
-def temoignageDetails(request,slug):
+def temoignageDetails(request,temoignageId):
     try :
-        temoignage=Temoignages.objects.get(slug=slug)
+        temoignage=Temoignages.objects.get(temoignageId=temoignageId)
     except Temoignages.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -20,9 +21,9 @@ def temoignageDetails(request,slug):
 
 
 @api_view(['PUT',])
-def temoignageModification(request,slug):
+def temoignageModification(request,temoignageId):
     try :
-        temoignage=Temoignages.objects.get(slug=slug)
+        temoignage=Temoignages.objects.get(temoignageId=temoignageId)
     except Temoignages.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -37,9 +38,9 @@ def temoignageModification(request,slug):
 
 
 @api_view(['DELETE',])
-def temoignageSuppression(request,slug):
+def temoignageSuppression(request,temoignageId):
     try :
-        temoignage=Temoignages.objects.get(slug=slug)
+        temoignage=Temoignages.objects.get(temoignageId=temoignageId)
     except Temoignages.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -56,7 +57,7 @@ def temoignageSuppression(request,slug):
 @api_view(['POST',])
 def temoignageCreation(request):
     utilisateur=Utilisateurs.objects.get(pk=1)
-    temoignage=Temoignages(creatrice=utilisateur)
+    temoignage=Temoignages(utilisateurId=utilisateur)
    
     if request.method=="POST":
         temoignage_serializer=TemoignageSerializer(temoignage,data=request.data)
@@ -69,68 +70,24 @@ def temoignageCreation(request):
 
 
 
+#Création des GET, POST, PUT, DELETE du modèle utilisateurs
 
+@api_view(['POST',])
+def inscription(request):
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-
-@csrf_exempt
-def temoignageAPI(request, id=0):
-    if request.method=='GET':
-        temoignages=Temoignages.objects.all()
-        temoignages_serializer=TemoignageSerializer(temoignages,many=True)
-        return Response(temoignages_serializer.data)
-    
-    elif request.method=='POST':
-        temoignage_serializer=TemoignageSerializer(data=request.data)
-        if temoignage_serializer.is_valid():
-            temoignage_serializer.save()
-            return Response(temoignage_serializer.data)
-        return Response(temoignage_serializer.errors)
-    
-    elif request.method=='PUT':
-        temoignage_data=JSONParser().parse(request)
-        temoignage=Temoignages.objects.get(temoignageId=temoignage_data['temoignageId'])
-        temoignage_serializer=TemoignageSerializer(temoignage,data=temoignage_data)
-        if temoignage_serializer.is_valid():
-            temoignage_serializer.save()
-            return JsonResponse("Le témoignage a bien été modifié !",safe=False)
-        return JsonResponse("Le témoignage n'a pas été modifié !",safe=False)
-
-    elif request.method=='DELETE':
-        temoignage=Temoignages.objects.get(temoignageId=id)
-        temoignage.delete()
-        return JsonResponse("Le témoignage a bien été supprimé !", safe=False)
-
-
-#Création du POST de l'inscription
-
-@csrf_exempt
-def utilisateurAPI(request):
     if request.method=='POST':
-        utilisateur_data=JSONParser().parse(request)
-        utilisateur_serializer=UtilisateurSerializer(data=utilisateur_data)
+        utilisateur_serializer=UtilisateurSerializer(data=request.data)
+        data={}
         if utilisateur_serializer.is_valid():
-            utilisateur_serializer.save()
-           # utilisateur_serializer['token']=Token.objects.get(user=utilisateur_serializer).key
-            return JsonResponse("Votre compte a bien été créé !",safe=False)
-        return JsonResponse("Votre compte n'a pas pu être créé !",safe=False)
-    
-'''      
+            utilisateur=utilisateur_serializer.save()
+            data['reponse']="La création du compte a été effectué !"
+            data['email']=utilisateur.email
+            token=Token.objects.get(user=utilisateur).key
+            data['token']=token
+        else :
+            data=utilisateur_serializer.errors
+        return Response(data)
+
+     
 
 

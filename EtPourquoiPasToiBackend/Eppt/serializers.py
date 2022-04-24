@@ -1,5 +1,3 @@
-#Convertir la data dans le format JSON
-
 from rest_framework import serializers
 from Eppt.models import Temoignages,Utilisateurs
 
@@ -26,6 +24,7 @@ class UtilisateurSerializer(serializers.ModelSerializer):
 
     def save(self):
         utilisateur=Utilisateurs(email=self.validated_data['email']) #vérification que l'email n'est pas déjà dans la bdd
+        
         password=self.validated_data['password']
         password2=self.validated_data['password2']
 
