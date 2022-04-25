@@ -62,15 +62,14 @@ class Temoignages(models.Model):
 #Création du gestionnaire du site :
 
 class UtilisateurGestionnaire(BaseUserManager):
-    def create_superuser(self,email,password,nom,prenom,typeUtilisateur,utilisateurId,is_staff=True,is_admin=True):
+    def create_superuser(self,email,password,is_staff=True,is_admin=True,*args,**kwargs):
         gestionnaire=self.model(
             email,
             password,
-            nom,
-            prenom,
-            typeUtilisateur,
             is_staff,
             is_admin,
+            *args,
+            **kwargs,
             )
         gestionnaire.save(using=self._db)
         return gestionnaire
@@ -90,11 +89,12 @@ class Utilisateurs(AbstractBaseUser):  #AbstractBaseUser continent que le champ 
 
     TYPE_UTILISATEUR=((LC,'Lycéenne ou collégienne'),(I,'Ingénieure ou étudiante ingénieure'),(AU,'Autre utilisateur.e'))
     typeUtilisateur=models.CharField(max_length=50,choices=TYPE_UTILISATEUR,blank=False)
-
+    """
     #nécessaire pour la création d'un admin :
     is_staff=models.BooleanField(default=False)
     is_admin=models.BooleanField(default=False)
     last_login=models.DateTimeField(auto_now_add=True,null=True)
+    """
 
     #Nécessaire avec l'utilisation de AbstractBaseUser
     USERNAME_FIELD='email'

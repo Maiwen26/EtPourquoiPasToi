@@ -10,8 +10,9 @@ class TemoignageSerializer(serializers.ModelSerializer):
     def save(self, **kwargs):
         return super().save(**kwargs)
     
+    
 
-class UtilisateurSerializer(serializers.ModelSerializer):
+class InscriptionSerializer(serializers.ModelSerializer):
 
     password2= serializers.CharField(style={'input_type':'password'},write_only=True) #création du mdp2 qui est au même format que 'password' qui existe déjà dans l'AbstractBaseUser 
 
@@ -33,4 +34,11 @@ class UtilisateurSerializer(serializers.ModelSerializer):
         utilisateur.set_password(password)
         utilisateur.save()
         return utilisateur
+
+
+class CompteUtilisateurSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model=Utilisateurs
+        fields=['utilisateurId','nom','prenom','email','typeUtilisateur']
 

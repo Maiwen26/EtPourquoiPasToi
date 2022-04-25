@@ -1,10 +1,16 @@
+import re
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.filters import SearchFilter,OrderingFilter
 
 from Eppt.models import Temoignages, Utilisateurs
-from Eppt.serializers import TemoignageSerializer, UtilisateurSerializer
+from Eppt.serializers import TemoignageSerializer, InscriptionSerializer, CompteUtilisateurSerializer
 
 #Création des GET, POST, PUT, DELETE du modèle témoignage
 
@@ -21,11 +27,16 @@ def temoignageDetails(request,temoignageId):
 
 
 @api_view(['PUT',])
+@permission_classes((IsAuthenticated,))
 def temoignageModification(request,temoignageId):
     try :
         temoignage=Temoignages.objects.get(temoignageId=temoignageId)
     except Temoignages.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    utilisateur=request.utilisateur
+    if temoignage.utilisateurId!=utilisateur.utilisateurId:
+        return Response({'reponse':"Vous ne pouvez pas faire cette action !"})
     
     if request.method=="PUT":
         temoignage_serializer=TemoignageSerializer(temoignage,data=request.data)
@@ -38,12 +49,18 @@ def temoignageModification(request,temoignageId):
 
 
 @api_view(['DELETE',])
+@permission_classes((IsAuthenticated,))
 def temoignageSuppression(request,temoignageId):
     try :
         temoignage=Temoignages.objects.get(temoignageId=temoignageId)
     except Temoignages.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
+    utilisateur=request.utilisateur
+    if temoignage.utilisateurId!=utilisateur.utilisateurId:
+        return Response({'reponse':"Vous ne pouvez pas faire cette action !"})
+    
+
     if request.method=="DELETE":
         operation=temoignage.delete()
         data={}
@@ -55,8 +72,9 @@ def temoignageSuppression(request,temoignageId):
 
 
 @api_view(['POST',])
+@permission_classes((IsAuthenticated,))
 def temoignageCreation(request):
-    utilisateur=Utilisateurs.objects.get(pk=1)
+    utilisateur=Utilisateurs.objects.get(utilisateurId=1)
     temoignage=Temoignages(utilisateurId=utilisateur)
    
     if request.method=="POST":
@@ -76,7 +94,7 @@ def temoignageCreation(request):
 def inscription(request):
 
     if request.method=='POST':
-        utilisateur_serializer=UtilisateurSerializer(data=request.data)
+        utilisateur_serializer=InscriptionSerializer(data=request.data)
         data={}
         if utilisateur_serializer.is_valid():
             utilisateur=utilisateur_serializer.save()
@@ -88,6 +106,69 @@ def inscription(request):
             data=utilisateur_serializer.errors
         return Response(data)
 
-     
+@api_view(['GET',])
+@permission_classes((IsAuthenticated,))
+def vueProfil(request):
+    try:
+        utilisateur=request.utilisateur#user à mettre ou non ?
+    except Utilisateurs.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method=='GET':
+        serializer=CompteUtilisateurSerializer(utilisateur)
+        return Response(serializer.data)
+
+
+@api_view(['PUT',])
+@permission_classes((IsAuthenticated,))
+def modificationProfil(request):
+    try:
+        utilisateur=request.utilisateur#user à mettre ou non ?
+    except Utilisateurs.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method=='PUT':
+        serializer=CompteUtilisateurSerializer(utilisateur,data=request.data)
+        data={}
+        if serializer.is_valid():
+            serializer.save()
+            data['response']="Modification de vos informations réuissie !"
+            return Response(data=data)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE',])
+@permission_classes((IsAuthenticated,))
+def suppressionProfil(request,utilisateurId):
+    try :
+        utilisateur=Utilisateurs.objects.get(utilisateurId=utilisateurId)
+    except Utilisateurs.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+
+    utilisateur2=request.utilisateur
+    if utilisateur2.utilisateurId!=utilisateur.utilisateurId:
+        return Response({'reponse':"Vous ne pouvez pas faire cette action !"})
+    
+
+    if request.method=="DELETE":
+        operation=utilisateur.delete()
+        data={}
+        if operation:
+            data["succes"]="La suppression a bien été effectuée !"
+        else:
+            data["echec"]="La supression a échoué !"
+        return Response(data=data)
+
+
+#Création de la vue comprenant la liste de tous les témoignages présents dans la bdd   
+class ListeTemoignage(ListAPIView):
+    queryset=Temoignages.objects.all()
+    serializer_class=TemoignageSerializer
+    authentication_classes=(TokenAuthentication,)
+    permission_classes=(IsAuthenticated,)
+    pagination_class=PageNumberPagination
+    filter_backends=(SearchFilter,OrderingFilter)
+    search_fields=('domaineEtude')
 
 
