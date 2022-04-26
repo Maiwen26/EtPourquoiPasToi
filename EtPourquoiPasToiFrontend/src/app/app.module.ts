@@ -15,6 +15,7 @@ import { ConfigService } from './service/config.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { TemoignagesComponent } from './temoignages/temoignages.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     ConnexionComponent,
     RechercheTemoignagesComponent,
     ProfilComponent,
+    TemoignagesComponent,
   ], /*déclarer les composants ou directives ou pipes */
   imports: [
     BrowserModule,

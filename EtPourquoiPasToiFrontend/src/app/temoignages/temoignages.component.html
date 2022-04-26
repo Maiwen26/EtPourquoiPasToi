@@ -1,0 +1,19 @@
+
+<table>
+    <thead>
+        <tr>
+            <th>temoignageId</th>
+            <th>titre</th>
+            <th>typeTemoignage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of Temoignage">
+            <td>{{dataItem.temoignageId}}</td>
+            <td>{{dataItem.titre}}</td>
+            <td>{{dataItem.typeTemoignage}}</td>
+            <button type="button">Modifier</button>
+            <button type="button">Supprimer</button>
+        </tr>
+    </tbody>
+</table>

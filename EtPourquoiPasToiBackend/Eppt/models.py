@@ -1,5 +1,5 @@
 from email.policy import default
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 from django.db import models
 
 #Pour l'authification 
@@ -62,21 +62,15 @@ class Temoignages(models.Model):
 #Création du gestionnaire du site :
 
 class UtilisateurGestionnaire(BaseUserManager):
-    def create_superuser(self,email,password,is_staff=True,is_admin=True,*args,**kwargs):
-        gestionnaire=self.model(
-            email,
-            password,
-            is_staff,
-            is_admin,
-            *args,
-            **kwargs,
-            )
+    def create_superuser(self,email,password=None,**extra_fields):
+        gestionnaire=self.model(email=email)
+        gestionnaire.set_password(password)
+        gestionnaire.is_staff=True
+        gestionnaire.is_admin=True
         gestionnaire.save(using=self._db)
         return gestionnaire
 
-
-
-class Utilisateurs(AbstractBaseUser):  #AbstractBaseUser continent que le champ password 
+class Utilisateurs(AbstractBaseUser,PermissionsMixin):  #AbstractBaseUser continent que le champ password 
     utilisateurId=models.AutoField(primary_key=True)
     nom=models.CharField(max_length=100,blank=False)
     prenom=models.CharField(max_length=100,blank=False)
@@ -89,16 +83,27 @@ class Utilisateurs(AbstractBaseUser):  #AbstractBaseUser continent que le champ 
 
     TYPE_UTILISATEUR=((LC,'Lycéenne ou collégienne'),(I,'Ingénieure ou étudiante ingénieure'),(AU,'Autre utilisateur.e'))
     typeUtilisateur=models.CharField(max_length=50,choices=TYPE_UTILISATEUR,blank=False)
-    """
-    #nécessaire pour la création d'un admin :
-    is_staff=models.BooleanField(default=False)
-    is_admin=models.BooleanField(default=False)
-    last_login=models.DateTimeField(auto_now_add=True,null=True)
-    """
+    
 
     #Nécessaire avec l'utilisation de AbstractBaseUser
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['nom','prenom','typeUtilisateur']
+
+    #Pour la création d'un super utilisateur :
+    is_staff=models.BooleanField(default=False)
+    is_admin=models.BooleanField(default=False)
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
 
     objects=UtilisateurGestionnaire()
 
