@@ -79,9 +79,9 @@ class Utilisateurs(AbstractBaseUser,PermissionsMixin):  #AbstractBaseUser contin
     #Création des choix pour le type d'utilisateur :
     LC='Lycéenne ou collégienne'
     I='Ingénieure ou étudiante ingénieure'
-    AU='Autre utilisateur.e'
+    AU='Autre'
 
-    TYPE_UTILISATEUR=((LC,'Lycéenne ou collégienne'),(I,'Ingénieure ou étudiante ingénieure'),(AU,'Autre utilisateur.e'))
+    TYPE_UTILISATEUR=((LC,'Lycéenne ou collégienne'),(I,'Ingénieure ou étudiante ingénieure'),(AU,'Autre'))
     typeUtilisateur=models.CharField(max_length=50,choices=TYPE_UTILISATEUR,blank=False)
     
 

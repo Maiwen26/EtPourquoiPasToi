@@ -10,7 +10,8 @@ urlpatterns=[
     path('creation',temoignageCreation,name="creation"),
 
     path('inscription',inscription,name="inscription"),
-    path('connexion',obtain_auth_token,name="login"),
+    path('api',obtain_auth_token,name="connexion"),
+    
     path('monProfil',vueProfil,name='monProfil'),
     path('monProfil/modification',modificationProfil,name='modificationProfil'),
     path('monProfil/suppression',suppressionProfil,name='suppressionProfil'),

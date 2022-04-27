@@ -16,6 +16,7 @@ import { ConfigService } from './service/config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { TemoignagesComponent } from './temoignages/temoignages.component';
+import { TemoignageComponent } from './temoignage/temoignage.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TemoignagesComponent } from './temoignages/temoignages.component';
     RechercheTemoignagesComponent,
     ProfilComponent,
     TemoignagesComponent,
+    TemoignageComponent,
   ], /*déclarer les composants ou directives ou pipes */
   imports: [
     BrowserModule,
@@ -39,7 +41,9 @@ import { TemoignagesComponent } from './temoignages/temoignages.component';
     ReactiveFormsModule,
 ],
   exports:[], /*exporter dans d'autres modules */
-  providers: [ConfigService], /*déclarer les services */
+  providers: [
+    ConfigService,
+    ], /*déclarer les services */
   bootstrap: [AppComponent] /*spécifier quel est le composant racine dans le module*/
 })
 export class AppModule { }

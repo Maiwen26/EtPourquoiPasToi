@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from '../service/config.service';
 
 @Component({
   selector: 'app-temoignages',
@@ -7,20 +6,15 @@ import { ConfigService } from '../service/config.service';
   styleUrls: ['./temoignages.component.scss']
 })
 export class TemoignagesComponent implements OnInit {
-  service: any;
 
-  constructor() { }
-
-  Temoignage:any=[];
-
+  constructor( ) {}
 
   ngOnInit(): void {
-    this.TemoignageRefresh();
+    
   }
-
-    TemoignageRefresh(){
-      this.service.temoignage().subscribe((data: any)=>{
-        this.Temoignage=data;
-      })
-    }
+ 
+   
+    
 }
+
+

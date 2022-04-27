@@ -1,19 +1,21 @@
-<form class="fond">
+<form #connexionForm="ngForm" class="fond">
     <h1>Connexion</h1>
 
     <div class="intitule form-row">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Email" required>
+        <input type="email" [(ngModel)]="utilisateur.email" class="form-control" id="email" placeholder="Email" required>
       </div>
 
       <div class="form-group">
         <label for="mdp">Mot de passe</label>
-        <input type="password" class="form-control" id="mdp" placeholder="Mot de passe" required>
+        <input type="password" [(ngModel)]="utilisateur.password" class="form-control" id="mdp" placeholder="Mot de passe" required>
       </div>
     </div>
+    
+    <button class="btn2" routerLink="/inscription" routerLinkActive="active" >Inscription au site</button>
 
-    <button type="submit" class="btn" routerLink="" routerLinkActive="active">Se connecter</button>
+    <button (click)="connexion()" class="btn">Se connecter</button>
 </form>
 
 <router-outlet></router-outlet>

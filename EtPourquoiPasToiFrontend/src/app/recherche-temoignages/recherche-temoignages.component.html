@@ -1,12 +1,26 @@
 
 <div class="paragraphe">
     <h1>Recherche de témoignages</h1>
-
-    <h2>Par domaine d'études</h2>
+    <div>
+        <h2>Par domaine d'études</h2>
+        <form #f="ngForm" (ngSubmit)="RechercheDomaineEtude(f.value)">
+            <tr>
+                <td>
+                    <div>
+                        <input class="rechercheRT" type="text"  placeholder="Domaine d'étude">
+                    </div>
+                </td>
+                <td>
+                    <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button>
+                </td>
+            </tr>
+        </form>
+    </div>
+    
 
    <div>
         <h2>Par région</h2>
-        <form>
+        <form #f="ngForm" (ngSubmit)="RechercheRegion(f.value)">
             <tr>
                 <td>
                     <select class="rechercheRT" id="inlineFormCustomSelect">
@@ -28,18 +42,18 @@
 
                 </td>
                 <td>
-                    <button type="submit" class="btn">Rechercher</button>
+                    <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button>
              
                 </td>
             </tr>
             
-          </form>
+        </form>
    </div>
 
 <div>
     
     <h2>Par type de témoignages</h2>
-    <form>
+    <form #f="ngForm" (ngSubmit)="RechercheType(f.value)">
         <tr>
             <td>
                 <select class="rechercheRT" id="inlineFormCustomSelect">
@@ -51,18 +65,11 @@
 
             </td>
             <td>
-                <button type="submit" class="btn">Rechercher</button>
+                <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button>
          
             </td>
         </tr>
         
-      </form>
+    </form>
 </div>
 </div>
-
-<div>
-    <a class="btn" routerLink="/listeTemoignages" routerLinkActive="active">ListeTem</a>
-</div>
- 
-
-<router-outlet></router-outlet>

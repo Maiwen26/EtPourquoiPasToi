@@ -12,4 +12,17 @@ export class RechercheTemoignagesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  RechercheRegion(repForm: any){
+    console.log(repForm);
+
+  }
+
+  RechercheDomaineEtude(repForm: any){
+    console.log(repForm);
+  }
+
+  RechercheType(repForm: any){
+    console.log(repForm);
+  }
+
 }

@@ -1,51 +1,51 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ConfigService {
 readonly APIUrl="http://127.0.0.1:8000/";
-readonly DocumentUrl="http://127.0.0.1:8000/media/medias"
+readonly mediasUrl="http://127.0.0.1:8000/media/"
+  constructor(private http:HttpClient) { }
 
-
-  constructor(private http: HttpClient) { }
-
-  //Lien entre backend et frontend des différentes méthodes pour les témoignages :
-  temoignage():Observable<any[]>{
-    return this.http.get<any[]>(this.APIUrl+'monProfil');
+  // Réceupération des urls liés au témoignages :
+  listeTemoignage():Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl+'liste');
   }
 
-  ajoutTemoignage(val:any){
-    return this.http.post<any[]>(this.APIUrl+'creation',val);
+  ajouterTemoignage(val:any){
+    return this.http.post(this.APIUrl+'creation',val);
   }
 
-  modificationTemoignage(val:any){
-    return this.http.put<any[]>(this.APIUrl+'<temoignageId>/modification',val);
+  modifierTemoignage(val:any){
+    return this.http.put(this.APIUrl+'<temoignageId>/modification',val);
   }
 
   suppressionTemoignage(val:any){
-    return this.http.delete<any[]>(this.APIUrl+'<temoignageId>/suppression',val);
+    return this.http.delete(this.APIUrl+'<temoignageId>/suppression',val)
   }
 
-  listeTemoignage(){
-    return this.http.get<any[]>(this.APIUrl+'liste')
+
+  // Réceupération des urls liés au utilisateur :
+  vueProfil(val:any){
+    return this.http.get(this.APIUrl+'monProfil',val);
   }
 
- //Lien entre backend et frontend des différentes méthodes pour les utilisateurs :
-  utilisateur():Observable<any[]>{
-    return this.http.get<any[]>(this.APIUrl+'monProfil');
+  modifierProfil(val:any){
+    return this.http.put(this.APIUrl+'monProfil/modification',val);
   }
 
-  ajoutUtilisateur(val:any){
-    return this.http.post<any[]>(this.APIUrl+'inscription',val);
+  suppressionProfil(val:any){
+    return this.http.delete(this.APIUrl+'monProfil/suppression',val)
   }
 
-  modificationUtilisateur(val:any){
-    return this.http.put<any[]>(this.APIUrl+'monProfil/modification',val);
+  inscriptionBDD(val:any){
+    return this.http.post(this.APIUrl+'inscription',val);
   }
 
-  suppressionUtilisateur(val:any){
-    return this.http.delete<any[]>(this.APIUrl+'monProfil/suppression',val);
-  }
+
 
 }
