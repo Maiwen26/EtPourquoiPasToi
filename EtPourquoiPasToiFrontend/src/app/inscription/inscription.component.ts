@@ -31,7 +31,7 @@ export class InscriptionComponent implements OnInit {
   }
   inscription(){
     var val={email:this.email,password:this.password,password2:this.password,nom:this.nom,prenom:this.prenom,typeUtilisateur:this.typeUtilisateur}  
-    this.service.inscriptionBDD(val).subscribe(res=>{alert(res.toString());
+    this.service.inscriptionBDD(val).subscribe(res=>{alert(res.toString()); //Méthode qui doit renvoyer les éléments du forms à la base de données --> ne marche pas 
     });
   };
   

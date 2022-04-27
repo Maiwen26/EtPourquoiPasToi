@@ -8,6 +8,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { TemoignagesComponent } from './temoignages/temoignages.component';
 import { TemoignageComponent } from './temoignage/temoignage.component';
 
+//Création des routes permettant de naviger d'une page à l'autre 
 const routes:Routes=[
   {path:'',component:HomeComponent},
   {path:'inscription',component:InscriptionComponent},

@@ -3,7 +3,7 @@
     <h1>Recherche de témoignages</h1>
     <div>
         <h2>Par domaine d'études</h2>
-        <form #f="ngForm" (ngSubmit)="RechercheDomaineEtude(f.value)">
+        <form #f="ngForm" (ngSubmit)="RechercheDomaineEtude(f.value)"> <!-- Renvoie à la fonction lorsque l'on clique sur le bouton de type Submit -->
             <tr>
                 <td>
                     <div>
@@ -11,7 +11,7 @@
                     </div>
                 </td>
                 <td>
-                    <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button>
+                    <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button> <!-- Lien vers la page liste de témoignages -->
                 </td>
             </tr>
         </form>
@@ -20,7 +20,7 @@
 
    <div>
         <h2>Par région</h2>
-        <form #f="ngForm" (ngSubmit)="RechercheRegion(f.value)">
+        <form #f="ngForm" (ngSubmit)="RechercheRegion(f.value)"> <!-- Renvoie à la fonction lorsque l'on clique sur le bouton de type Submit -->
             <tr>
                 <td>
                     <select class="rechercheRT" id="inlineFormCustomSelect">
@@ -42,7 +42,7 @@
 
                 </td>
                 <td>
-                    <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button>
+                    <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button> <!-- Lien vers la page liste de témoignages -->
              
                 </td>
             </tr>
@@ -53,7 +53,7 @@
 <div>
     
     <h2>Par type de témoignages</h2>
-    <form #f="ngForm" (ngSubmit)="RechercheType(f.value)">
+    <form #f="ngForm" (ngSubmit)="RechercheType(f.value)"> <!-- Renvoie à la fonction lorsque l'on clique sur le bouton de type Submit -->
         <tr>
             <td>
                 <select class="rechercheRT" id="inlineFormCustomSelect">
@@ -65,7 +65,7 @@
 
             </td>
             <td>
-                <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button>
+                <button type="submit" class="btn" routerLink="/listeTemoignages" routerLinkActive="active">Rechercher</button> <!-- Lien vers la page liste de témoignages -->
          
             </td>
         </tr>

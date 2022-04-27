@@ -9,7 +9,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } 
+  //Permet de récupérer le token il a un utilisateur qui permet ensuite de s'avoir si l'utilisateur est connecté ou non  
   authToken(credit: { email: any; password: any; }): Observable<any> {
     return this.http.post(AUTH_API + 'authToken', {
       email: credit.email,

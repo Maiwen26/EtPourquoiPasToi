@@ -110,7 +110,7 @@ def inscription(request):
 @permission_classes((IsAuthenticated,))
 def vueProfil(request):
     try:
-        utilisateur=request.utilisateur#user à mettre ou non ?
+        utilisateur=request.utilisateur
     except Utilisateurs.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -123,7 +123,7 @@ def vueProfil(request):
 @permission_classes((IsAuthenticated,))
 def modificationProfil(request):
     try:
-        utilisateur=request.utilisateur#user à mettre ou non ?
+        utilisateur=request.utilisateur
     except Utilisateurs.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

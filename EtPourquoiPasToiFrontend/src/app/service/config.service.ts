@@ -7,11 +7,13 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ConfigService {
+  // Lien avec l'url principal du backend
 readonly APIUrl="http://127.0.0.1:8000/";
+//Lien avec le dossier média dans lequel se trouve le contenu de chaque témoignage
 readonly mediasUrl="http://127.0.0.1:8000/media/"
   constructor(private http:HttpClient) { }
 
-  // Réceupération des urls liés au témoignages :
+  // Réceupération des urls liés aux témoignages :
   listeTemoignage():Observable<any[]>{
     return this.http.get<any[]>(this.APIUrl+'liste');
   }
@@ -29,7 +31,7 @@ readonly mediasUrl="http://127.0.0.1:8000/media/"
   }
 
 
-  // Réceupération des urls liés au utilisateur :
+  // Réceupération des urls liés aux utilisateurs :
   vueProfil(val:any){
     return this.http.get(this.APIUrl+'monProfil',val);
   }

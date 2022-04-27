@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '../service/config.service';
 
 @Component({
   selector: 'app-recherche-temoignages',
@@ -7,22 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RechercheTemoignagesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sevice:ConfigService) { }
 
   ngOnInit(): void {
   }
 
   RechercheRegion(repForm: any){
-    console.log(repForm);
+    for ( const temoignage in this.sevice.listeTemoignage())
+    {
+      //if (temoignage.region)    --> pas d'accès au champs du modèle témoignage
+    }
 
   }
 
   RechercheDomaineEtude(repForm: any){
-    console.log(repForm);
+    
+    for ( const temoignage in this.sevice.listeTemoignage())
+    {
+      //if (temoignage.domaineEtude)    --> pas d'accès au champs du modèle témoignage
+    }
+
+    ;
   }
 
   RechercheType(repForm: any){
-    console.log(repForm);
+    for ( const temoignage in this.sevice.listeTemoignage())
+    {
+      //if (temoignage.typeTemoignage)    --> pas d'accès au champs du modèle témoignage
+    }
   }
 
 }
